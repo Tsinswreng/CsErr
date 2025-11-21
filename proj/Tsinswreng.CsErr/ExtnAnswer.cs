@@ -1,5 +1,3 @@
-using Ngaq.Core.Infra.Errors;
-
 namespace Tsinswreng.CsErr;
 
 public static class ExtnIAnswer{

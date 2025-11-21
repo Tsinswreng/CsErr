@@ -1,3 +1,4 @@
+#if false
 namespace Tsinswreng.CsErr;
 
 using K = IErrItem;
@@ -28,3 +29,5 @@ public static class ItemsErr{
 		public static K BackgroundImageServiceFailedToInit = MkB(_R, [nameof(BackgroundImageServiceFailedToInit)]);
 	}
 }
+
+#endif
