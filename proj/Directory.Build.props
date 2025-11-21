@@ -1,0 +1,12 @@
+<Project>
+	<PropertyGroup>
+		<AllowMissingPrunePackageData>true</AllowMissingPrunePackageData>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<NoWarn>CS8669</NoWarn> <!-- null相關 -->
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Include="../TypeAlias.cs" />
+	</ItemGroup>
+</Project>
