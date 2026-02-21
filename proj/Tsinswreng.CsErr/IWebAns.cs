@@ -4,19 +4,25 @@ using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 
 /// 除IWebAns<obj>外 他者勿用、緣不支持AOT下json序列化
+[Doc($@"Web API response interface. Use {nameof(IWebAns<obj>)} for AOT compatibility")]
 public interface IWebAns<T>{
+	[Doc($@"Response data")]
 	public T? Data{get;set;}
+	[Doc($@"List of error views")]
 	public IList<IAppErrView>? Errors{get;set;}
 }
 
+[Doc($@"Default implementation of {nameof(IWebAns<T>)}")]
 public class WebAns<T>:IWebAns<T>{
 	public T? Data{get;set;}
 	public IList<IAppErrView>? Errors{get;set;}
 }
 
+[Doc($@"Factory for creating {nameof(IWebAns<obj>)}")]
 public class WebAns:WebAns<obj>
 //, IAppSerializable
 {
+	[Doc($@"Creates a new {nameof(IWebAns<obj>)}")]
 	public static IWebAns<obj> Mk(obj? Data, IList<IAppErrView>? Errors=null){
 		return new WebAns<obj>(){
 			Data = Data,
@@ -27,8 +33,7 @@ public class WebAns:WebAns<obj>
 }
 
 public static class ExtnWebAns{
-	// public static str ToJson<T>(this IWebAns<T> z){
-	// }
+	[Doc($@"Returns {nameof(IWebAns<T>.Data)} or throws {nameof(AppErr)} if errors exist")]
 	public static T? DataOrThrow<T>(this IWebAns<T> z){
 		if(z.Errors is not null && z.Errors.Count > 0){
 			throw AppErr.FromViews(z.Errors).ToAppErr();
@@ -38,6 +43,7 @@ public static class ExtnWebAns{
 
 
 	extension(WebAns z){
+		[Doc($@"Deserializes JSON to {nameof(IWebAns<T>)}")]
 		public static IWebAns<T> Deserialize<T>(
 			str Json
 			,JsonTypeInfo<IList<AppErrView>> IListAppErrViewJsonTypeInfo
@@ -54,7 +60,7 @@ public static class ExtnWebAns{
 			// 2. 反序列化 Data（按需用默认源生成器或调用方提供的选项）
 			T? data = default;
 			if (root.TryGetProperty(nameof(IWebAns<>.Data), out var dataEl) && dataEl.ValueKind != JsonValueKind.Null){
-				//“AppJsonCtx”未包含“GetRequiredTypeInfo”的定义，并且找不到可接受第一个“AppJsonCtx”类型参数的可访问扩展方法“GetRequiredTypeInfo”(是否缺少 using 指令或程序集引用?)CS1061
+				//"AppJsonCtx"未包含"GetRequiredTypeInfo"的定义，并且找不到可接受第一个"AppJsonCtx"类型参数的可访问扩展方法"GetRequiredTypeInfo"(是否缺少 using 指令或程序集引用?)CS1061
 				data = (T?)dataEl.Deserialize(FnGetJsonTypeInfo(typeof(T))!);
 			}
 

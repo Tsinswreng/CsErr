@@ -1,11 +1,13 @@
 namespace Tsinswreng.CsErr;
 
+[Doc($@"Container for error collection")]
 public partial interface I_Errors{
-	/// 可潙string, Exception等i
+	[Doc($@"List of errors, can be string, Exception, etc")]
 	public IList<obj?> Errors{get;set;}
 }
 
 public static class ExtnI_Errors{
+	[Doc($@"Adds an error to {nameof(I_Errors.Errors)} and returns self for fluent chaining")]
 	public static TSelf AddErr<TSelf>(
 		this TSelf z, obj Err
 	)where TSelf : class, I_Errors
@@ -15,6 +17,7 @@ public static class ExtnI_Errors{
 		return z;
 	}
 
+	[Doc($@"Flattens nested errors into a list of {nameof(IAppErrView)}")]
 	public static IList<IAppErrView> ToErrViews(this I_Errors z){
 		var R = new List<IAppErrView>();
 		foreach(var err in z.Errors){
@@ -28,6 +31,7 @@ public static class ExtnI_Errors{
 		return R;
 	}
 
+	[Doc($@"Converts errors to an {nameof(AppErr)} instance")]
 	public static AppErr ToAppErr(this I_Errors z){
 		return AppErr.FromViews(z.ToErrViews());
 	}
