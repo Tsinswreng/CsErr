@@ -1,9 +1,7 @@
 namespace Tsinswreng.CsErr;
 
 public partial interface I_Errors{
-	/// <summary>
 	/// 可潙string, Exception等i
-	/// </summary>
 	public IList<obj?> Errors{get;set;}
 }
 

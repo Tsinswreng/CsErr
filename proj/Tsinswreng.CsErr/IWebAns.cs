@@ -3,11 +3,7 @@ namespace Tsinswreng.CsErr;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 
-
-/// <summary>
 /// 除IWebAns<obj>外 他者勿用、緣不支持AOT下json序列化
-/// </summary>
-/// <typeparam name="T"></typeparam>
 public interface IWebAns<T>{
 	public T? Data{get;set;}
 	public IList<IAppErrView>? Errors{get;set;}
@@ -67,9 +63,5 @@ public static class ExtnWebAns{
 			R.Errors = errors?.Select(x=>(IAppErrView)x).ToList();
 			return R;
 		}
-
-
 	}
-
-
 }
