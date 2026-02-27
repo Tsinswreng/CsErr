@@ -8,11 +8,9 @@ public partial struct Answer<T>()
 	public T? Data{get;set;}
 	[Doc($@"Whether the operation succeeded")]
 	public bool Ok{get;set;}
-	[Doc($@"List of errors if failed")]
-	public IList<obj?>? Errors{get;set;} = new List<obj?>();
-	[Doc($@"Status code or value")]
-	public obj Status{get;set;} = 0;
-	[Doc($@"Status type descriptor")]
-	public str? StatusType{get;set;}
+	[Doc($@"List of errors if failed
+	item can be any including Exception, string, etc
+	")]
+	public IList<obj?> Errors{get;set;} = new List<obj?>();
 
 }
