@@ -75,11 +75,11 @@ public partial class AppErr
 		return FillTemplate(Key??"", Args??[]);
 	}
 
-	/// <summary>
+	
 	/// 把 args 依序填入模板中連續的「__」位置。
 	/// 例: FillTemplate("ParseErrorAtFile__Line__Col__", "MyFile", 0, 1)
 	///     → "ParseErrorAtFile[MyFile]Line[0]Col[1]"
-	/// </summary>
+	
 	[Doc($@"Fills template placeholders `__` with args. E.g. `ParseErrorAtFile__Line__` with args [`MyFile`, 0] becomes `ParseErrorAtFile[MyFile]Line[0]`")]
 	static string FillTemplate(string template, IList<object?> args){
 		if (string.IsNullOrEmpty(template)) return string.Empty;
