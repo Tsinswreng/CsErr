@@ -1,7 +1,7 @@
 namespace Tsinswreng.CsErr;
 using Tsinswreng.CsCfg;
 
-[Doc($@"Error item interface, extends {nameof(ICfgItem)} and {nameof(I_Tags)}")]
+[Doc($@"Error item interface")]
 public interface IErrItem:ICfgItem, I_Tags{
 
 }

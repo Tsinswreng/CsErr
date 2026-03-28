@@ -71,8 +71,20 @@ public partial class AppErr
 		return R;
 	}
 
+	// public override str ToString(){
+	// 	return FillTemplate(Key??"", Args??[]);
+	// }
 	public override str ToString(){
-		return FillTemplate(Key??"", Args??[]);
+		var z = this;
+		var R = new List<str>();
+		R.Add(z.Message);
+		R.Add(z?.Source??"");
+		R.Add(z?.StackTrace??"");
+		R.Add(z?.InnerException?.ToString()??"");
+		foreach(var Err in z?.Errors??[]){
+			R.Add(Err?.ToString()??"");
+		}
+		return string.Join("\n", R);
 	}
 
 	
