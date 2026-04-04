@@ -1,8 +1,8 @@
 #if false
 namespace Tsinswreng.CsErr;
 
-using K = IErrItem;
-using static ErrItem;
+using K = IErrNode;
+using static ErrNode;
 
 
 public static class ItemsErr{

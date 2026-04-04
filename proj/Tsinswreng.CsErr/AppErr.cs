@@ -17,7 +17,7 @@ public partial class AppErr
 	}
 	public AppErr(){}
 	[Doc($@"Error type item for classification")]
-	public IErrItem? Type{get;set;}
+	public IErrNode? Type{get;set;}
 	[Doc($@"Full path key derived from {nameof(Type)}")]
 	public str? Key { get{
 		return Type?.GetFullPath();
@@ -34,7 +34,7 @@ public partial class AppErr
 	public IList<obj?>? DebugArgs { get; set; } = new List<obj?>();
 
 	[Doc($@"Creates an {nameof(AppErr)} with given type and arguments")]
-	public static AppErr Mk(IErrItem Key, params obj?[] Args){
+	public static AppErr Mk(IErrNode Key, params obj?[] Args){
 		var R = new AppErr();
 		R.Type = Key;
 		R.Args = Args;
@@ -43,7 +43,7 @@ public partial class AppErr
 
 	[Doc($@"Creates an {nameof(AppErr)} from {nameof(IAppErrView)}")]
 	public static AppErr FromView(IAppErrView View){
-		var ErrItem = new ErrItem();
+		var ErrItem = new ErrNode();
 		ErrItem.RelaPathSegs = View.Key?.Split(CfgNode<obj>.PathSep).ToList()??[];
 		ErrItem.Tags = View.Tags;
 

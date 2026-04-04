@@ -1,6 +1,6 @@
 ﻿namespace Tsinswreng.CsErr.Test;
-using K = Tsinswreng.CsErr.IErrItem;
-using static Tsinswreng.CsErr.ErrItem;
+using K = Tsinswreng.CsErr.IErrNode;
+using static Tsinswreng.CsErr.ErrNode;
 using Tsinswreng.CsCore;
 public class Sample{
 	/// 異常條目枚舉

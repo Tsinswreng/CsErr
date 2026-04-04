@@ -8,7 +8,7 @@ public partial interface IAppErr
 	,I_Errors//內ʹ錯
 {
 	[Doc($@"Error type item for classification and key generation")]
-	public IErrItem? Type{get;set;}
+	public IErrNode? Type{get;set;}
 	/// 㕥置 未ToString之原始對象、用于除錯
 	[Doc($@"Raw objects for debugging, not shown to end users")]
 	public IList<obj?>? DebugArgs{get;set;}
