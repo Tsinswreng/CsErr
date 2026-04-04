@@ -44,7 +44,7 @@ public partial class AppErr
 	[Doc($@"Creates an {nameof(AppErr)} from {nameof(IAppErrView)}")]
 	public static AppErr FromView(IAppErrView View){
 		var ErrItem = new ErrItem();
-		ErrItem.RelaPathSegs = View.Key?.Split(CfgItem<obj>.PathSep).ToList()??[];
+		ErrItem.RelaPathSegs = View.Key?.Split(CfgNode<obj>.PathSep).ToList()??[];
 		ErrItem.Tags = View.Tags;
 
 		var R = new AppErr();

@@ -2,13 +2,13 @@ namespace Tsinswreng.CsErr;
 using Tsinswreng.CsCfg;
 
 [Doc($@"Error item interface")]
-public interface IErrItem:ICfgItem, I_Tags{
+public interface IErrItem:ICfgNode, I_Tags{
 
 }
 
 
 [Doc($@"Error item for classification and key generation")]
-public class ErrItem:CfgItem<nil>, IErrItem {
+public class ErrItem:CfgNode<nil>, IErrItem {
 	[Doc($@"Tags for categorization")]
 	public ISet<str> Tags{get;set;} = new HashSet<str>();
 	[Doc($@"Creates an {nameof(IErrItem)} with parent, path, and optional tags")]
