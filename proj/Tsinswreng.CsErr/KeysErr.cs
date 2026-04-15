@@ -5,7 +5,7 @@ using K = IErrNode;
 using static ErrNode;
 
 
-public static class ItemsErr{
+public static class KeysErr{
 	public static class Common{
 		public static K _R = Mk(null, [nameof(Common)]);
 		public static K ArgErr = MkB(_R, [nameof(ArgErr)]);
