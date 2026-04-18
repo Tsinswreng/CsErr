@@ -28,6 +28,11 @@ public static class KeysErr{
 		public static K __And__IsNotSameUserWord = MkB(_R, [nameof(__And__IsNotSameUserWord)]);
 		public static K BackgroundImageServiceFailedToInit = MkB(_R, [nameof(BackgroundImageServiceFailedToInit)]);
 	}
+	public class Sync{
+		public static K _R = Mk(null, [nameof(Sync)]);
+		public static K BatchGetByIdCountMismatch = MkB(_R, [nameof(BatchGetByIdCountMismatch)]);
+		public static K SyncShouldUseSameId = MkB(_R, [nameof(SyncShouldUseSameId)]);
+	}
 }
 
 #endif
