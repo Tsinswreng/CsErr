@@ -6,8 +6,12 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="../../../Tsinswreng.CsCore/proj/Tsinswreng.CsCore/Tsinswreng.CsCore.csproj" />
-		<ProjectReference Include="../../../Tsinswreng.CsCfg/proj/Tsinswreng.CsCfg/Tsinswreng.CsCfg.csproj" />
+		<!-- <ProjectReference Include="../../../Tsinswreng.CsCore/proj/Tsinswreng.CsCore/Tsinswreng.CsCore.csproj" /> -->
+		<!-- <ProjectReference Include="../../../Tsinswreng.CsCfg/proj/Tsinswreng.CsCfg/Tsinswreng.CsCfg.csproj" /> -->
+		<PackageReference Include="Tsinswreng.CsCore" Version="0.0.1-alpha" />
+		<PackageReference Include="Tsinswreng.CsCfg" Version="0.0.1-alpha" />
+		<!-- <PackageReference Include="Tsinswreng.CsErr" Version="0.0.1-alpha" /> -->
+		
 		<Compile Include="../TypeAlias.cs" />
 	</ItemGroup>
 </Project>

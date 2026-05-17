@@ -1,8 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-
+		<PackageId>Tsinswreng.CsErr</PackageId>
+		<Version>0.0.1-alpha</Version>
+		<Authors>Tsinswreng</Authors>
+		<Description>Typed error and answer abstractions for business-friendly error handling in C#.</Description>
+		<PackageTags>Error;Result;Answer;Exceptions;I18n</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup>
-
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 </Project>
