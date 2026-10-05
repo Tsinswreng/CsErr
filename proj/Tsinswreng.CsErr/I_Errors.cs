@@ -6,7 +6,7 @@ public partial interface I_Errors{
 	public IList<obj?> Errors{get;set;}
 }
 
-public static class ExtnI_Errors{
+public static class I_ErrorsExtn{
 	[Doc($@"Adds an error to {nameof(I_Errors.Errors)} and returns self for fluent chaining")]
 	public static TSelf AddErr<TSelf>(
 		this TSelf z, obj Err

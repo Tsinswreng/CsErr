@@ -1,7 +1,7 @@
 namespace Tsinswreng.CsErr;
 using Tsinswreng.CsCore;
 
-public static class ExtnAppErr{
+public static class AppErrExtn{
 	[Doc($@"Adds debug arguments for troubleshooting, not shown to end users")]
 	public static TSelf AddDebugArgs<TSelf>(
 		this TSelf z, params obj?[] Args

@@ -1,6 +1,6 @@
 namespace Tsinswreng.CsErr;
 
-public static class ExtnIAnswer{
+public static class IAnswerExtn{
 	[Doc($@"Adds a string error and sets {nameof(IAnswer<T>.Ok)} to false")]
 	public static IAnswer<T> AddErr<T>(this IAnswer<T> z, str s){
 		return z.AddErrStr(s);

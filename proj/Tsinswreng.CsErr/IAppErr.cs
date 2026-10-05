@@ -15,7 +15,7 @@ public partial interface IAppErr
 }
 
 
-public static class ExtnIAppErr{
+public static class IAppErrExtn{
 	public static AppErr ToAppErr(
 		this IAppErr z
 	){

@@ -32,7 +32,7 @@ public class WebAns:WebAns<obj>
 
 }
 
-public static class ExtnWebAns{
+public static class WebAnsExtn{
 	[Doc($@"Returns {nameof(IWebAns<T>.Data)} or throws {nameof(AppErr)} if errors exist")]
 	public static T? DataOrThrow<T>(this IWebAns<T> z){
 		if(z.Errors is not null && z.Errors.Count > 0){
