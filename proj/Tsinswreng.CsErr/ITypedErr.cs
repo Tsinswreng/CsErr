@@ -16,6 +16,14 @@ public partial interface ITypedErr
 
 
 public static class ITypedErrExtn{
+	[Doc($@"Adds debug arguments for troubleshooting, not shown to end users")]
+	public static TSelf AddDebugArgs<TSelf>(
+		this TSelf z, params obj?[] Args
+	)where TSelf: class, ITypedErr{
+		z.DebugArgs ??= new List<object?>();
+		z.DebugArgs.AddRange(Args);
+		return z;
+	}
 	public static TypedErr ToTypedErr(
 		this ITypedErr z
 	){

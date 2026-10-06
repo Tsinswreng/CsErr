@@ -41,7 +41,7 @@ public class ErrNode:KeyNode, IErrNode {
 	}
 }
 
-public static class ExtnErrItem{
+public static class ErrItemExtn{
 	[Doc($@"Converts {nameof(IErrNode)} to {nameof(TypedErr)} with arguments")]
 	public static TypedErr ToErr(this IErrNode z, params obj?[] Args){
 		return TypedErr.Mk(z, Args);
