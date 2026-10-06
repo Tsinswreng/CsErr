@@ -2,8 +2,9 @@ namespace Tsinswreng.CsErr;
 using Tsinswreng.CsKeyNode;
 
 [Doc($@"Error item interface")]
-public interface IErrNode:IKeyNode, I_Tags{
-
+public interface IErrNode:IKeyNode{
+	[Doc($@"Set of string tags for categorization")]
+	public ISet<str> Tags{get;set;}
 }
 
 

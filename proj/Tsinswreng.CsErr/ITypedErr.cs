@@ -10,6 +10,7 @@ public partial interface ITypedErr
 	[Doc($@"Error type item for classification and key generation")]
 	public IErrNode? Type{get;set;}
 	/// 㕥置 未ToString之原始對象、用于除錯
+	
 	[Doc($@"Raw objects for debugging, not shown to end users")]
 	public IList<obj?>? DebugArgs{get;set;}
 }
@@ -24,12 +25,18 @@ public static class ITypedErrExtn{
 		z.DebugArgs.AddRange(Args);
 		return z;
 	}
-	public static TypedErr ToTypedErr(
+	public static TypedErr AsOrToTypedErr(
 		this ITypedErr z
 	){
-		var R = new TypedErr();
-		R.Key = z.Key;
-		R.Errors = z.Errors;
+		if(z is TypedErr t){
+			return t;
+		}
+		
+		var R = new TypedErr{
+			Type = z.Type,
+			Errors = z.Errors
+		};
 		return R;
 	}
 }
+

@@ -32,7 +32,7 @@ public static class I_ErrorsExtn{
 	}
 
 	[Doc($@"Converts errors to an {nameof(TypedErr)} instance")]
-	public static TypedErr ToAppErr(this I_Errors z){
-		return TypedErr.FromViews(z.ToErrViews());
+	public static TypedErr ToAppErr(this I_Errors z, OptParseView Opt){
+		return TypedErr.FromViews(z.ToErrViews(), Opt);
 	}
 }
