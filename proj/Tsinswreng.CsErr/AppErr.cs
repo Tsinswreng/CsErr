@@ -1,21 +1,21 @@
 namespace Tsinswreng.CsErr;
 
 using System.Text;
-using Tsinswreng.CsCfg;
+using Tsinswreng.CsKeyNode;
 
 
-[Doc($@"Application error class, extends {nameof(Exception)} and implements {nameof(IAppErr)}")]
-public partial class AppErr
+[Doc($@"Application error class, extends {nameof(Exception)} and implements {nameof(ITypedErr)}")]
+public partial class TypedErr
 	:Exception
 	,IErr
-	,IAppErr
+	,ITypedErr
 {
-	public AppErr(string? message, Exception? innerException = null)
+	public TypedErr(string? message, Exception? innerException = null)
 		:base(message, innerException)
 	{
 
 	}
-	public AppErr(){}
+	public TypedErr(){}
 	[Doc($@"Error type item for classification")]
 	public IErrNode? Type{get;set;}
 	[Doc($@"Full path key derived from {nameof(Type)}")]
@@ -33,34 +33,36 @@ public partial class AppErr
 	[Doc($@"Raw objects for debugging")]
 	public IList<obj?>? DebugArgs { get; set; } = new List<obj?>();
 
-	[Doc($@"Creates an {nameof(AppErr)} with given type and arguments")]
-	public static AppErr Mk(IErrNode Key, params obj?[] Args){
-		var R = new AppErr();
+	[Doc($@"Creates an {nameof(TypedErr)} with given type and arguments")]
+	public static TypedErr Mk(IErrNode Key, params obj?[] Args){
+		var R = new TypedErr();
 		R.Type = Key;
 		R.Args = Args;
 		return R;
 	}
 
-	[Doc($@"Creates an {nameof(AppErr)} from {nameof(IAppErrView)}")]
-	public static AppErr FromView(IAppErrView View){
-		var ErrItem = new ErrNode();
-		ErrItem.RelaPathSegs = View.Key?.Split(CfgNode<obj>.PathSep).ToList()??[];
-		ErrItem.Tags = View.Tags;
-
-		var R = new AppErr();
+	[Doc($@"Creates an {nameof(TypedErr)} from {nameof(ITypedErrView)}")]
+	public static TypedErr FromView(ITypedErrView View){
+		var ErrItem = new ErrNode(){
+			//TswgNote
+			RelaPathSegs = View.Key?.Split(this.PathSep).ToList()??[],
+			Tags = View.Tags,
+		};
+		
+		var R = new TypedErr();
 		R.Type = ErrItem;
 		R.Args = View.Args;
 		return R;
 	}
 	[Doc($@"
-#Sum[Creates an {nameof(AppErr)} from a list of {nameof(IAppErrView)}]
+#Sum[Creates an {nameof(TypedErr)} from a list of {nameof(ITypedErrView)}]
 #Throw[{nameof(Exception)}][Views is empty]
 ")]
-	public static AppErr FromViews(IList<IAppErrView> Views){
+	public static TypedErr FromViews(IList<ITypedErrView> Views){
 		if(Views.Count == 0){
 			throw new Exception("Views.Count == 0");
 		}
-		AppErr R = null!;
+		TypedErr R = null!;
 		for(var i = 0; i < Views.Count; i++){
 			if(i == 0){
 				R = FromView(Views[i]);

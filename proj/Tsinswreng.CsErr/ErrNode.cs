@@ -1,21 +1,23 @@
 namespace Tsinswreng.CsErr;
-using Tsinswreng.CsCfg;
+using Tsinswreng.CsKeyNode;
 
 [Doc($@"Error item interface")]
-public interface IErrNode:ICfgNode, I_Tags{
+public interface IErrNode:IKeyNode, I_Tags{
 
 }
 
 
 [Doc($@"Error item for classification and key generation")]
-public class ErrNode:CfgNode<nil>, IErrNode {
+public class ErrNode:KeyNode, IErrNode {
 	[Doc($@"Tags for categorization")]
 	public ISet<str> Tags{get;set;} = new HashSet<str>();
 	[Doc($@"Creates an {nameof(IErrNode)} with parent, path, and optional tags")]
 	public static IErrNode Mk(IErrNode? Parent, IList<str> Path, IList<str>? Tags = null){
-		var R = new ErrNode();
-		R.Parent = Parent;
-		R.RelaPathSegs = Path;
+		var R = new ErrNode{
+			Parent = Parent,
+			RelaPathSegs = Path,
+		};
+		
 		if(Tags != null){
 			R.Tags.UnionWith(Tags);
 		}
@@ -40,8 +42,8 @@ public class ErrNode:CfgNode<nil>, IErrNode {
 }
 
 public static class ExtnErrItem{
-	[Doc($@"Converts {nameof(IErrNode)} to {nameof(AppErr)} with arguments")]
-	public static AppErr ToErr(this IErrNode z, params obj?[] Args){
-		return AppErr.Mk(z, Args);
+	[Doc($@"Converts {nameof(IErrNode)} to {nameof(TypedErr)} with arguments")]
+	public static TypedErr ToErr(this IErrNode z, params obj?[] Args){
+		return TypedErr.Mk(z, Args);
 	}
 }

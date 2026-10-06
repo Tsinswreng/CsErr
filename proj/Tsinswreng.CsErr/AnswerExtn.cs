@@ -40,7 +40,7 @@ public static class IAnswerExtn{
 		}).ToList();
 	}
 
-	[Doc($@"Returns {nameof(IAnswer<T>.Data)} or throws {nameof(AppErr)} if not ok")]
+	[Doc($@"Returns {nameof(IAnswer<T>.Data)} or throws {nameof(TypedErr)} if not ok")]
 	public static T DataOrThrow<T>(this IAnswer<T> z){
 		if(!z.Ok){
 			throw z.ToAppErr();

@@ -3,8 +3,8 @@ namespace Tsinswreng.CsErr;
 
 /// 應用基異常接口
 [Doc($@"Base interface for application errors")]
-public partial interface IAppErr
-	:IAppErrView
+public partial interface ITypedErr
+	:ITypedErrView
 	,I_Errors//內ʹ錯
 {
 	[Doc($@"Error type item for classification and key generation")]
@@ -15,11 +15,11 @@ public partial interface IAppErr
 }
 
 
-public static class IAppErrExtn{
-	public static AppErr ToAppErr(
-		this IAppErr z
+public static class ITypedErrExtn{
+	public static TypedErr ToTypedErr(
+		this ITypedErr z
 	){
-		var R = new AppErr();
+		var R = new TypedErr();
 		R.Key = z.Key;
 		R.Errors = z.Errors;
 		return R;

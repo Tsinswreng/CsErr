@@ -28,7 +28,7 @@ public class Sample{
 
 	public void ExsampleThrow(){
 		//轉 AppErr 示例。AppErr是Exception的子類，所以可以直接用throw來拋出。
-		AppErr e1 = ItemsErr.Common.ArgErr.ToErr();
+		TypedErr e1 = ItemsErr.Common.ArgErr.ToErr();
 		//帶參數轉 AppErr示例
 		throw ItemsErr.Word.__And__IsNotSameUserWord.ToErr("Word1", "Word2")
 		.AddDebugArgs("AddDebugArgs 可選、可加任意多個 任意object")

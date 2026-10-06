@@ -5,13 +5,14 @@ namespace Tsinswreng.CsErr;
 /// 至于預料外ʹ異常、則猶用throw+try-catch、不用此㕥包㞢
 [Doc($$"""
 Return value wrapper interface.Result/Response Pattern
-#Descr[
+
+不throw,
+強制要求調用方檢查
 compare with throw-try-catch pattern:
-	#H[situation suitable to use `IAnswer<>`][
-		+ when error occurs, no need to break the control
-	]
+#H[situation suitable to use `IAnswer<>`][
+	+ when error occurs, no need to break the control
 ]
-#Examples([
+#Eg[
 ```cs
 IAnswer<T> fn(){
 	var R = new Answer<T>(); // default of R.Ok is false;
@@ -26,7 +27,7 @@ IAnswer<T> fn(){
 	}
 }
 ```
-])
+]
 """)]
 public partial interface IAnswer<T>:I_Errors{
 	[Doc($@"The result data")]

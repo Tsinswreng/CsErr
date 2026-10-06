@@ -5,7 +5,7 @@ public static class AppErrExtn{
 	[Doc($@"Adds debug arguments for troubleshooting, not shown to end users")]
 	public static TSelf AddDebugArgs<TSelf>(
 		this TSelf z, params obj?[] Args
-	)where TSelf: class, IAppErr{
+	)where TSelf: class, ITypedErr{
 		z.DebugArgs ??= new List<object?>();
 		z.DebugArgs.AddRange(Args);
 		return z;

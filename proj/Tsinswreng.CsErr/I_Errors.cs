@@ -17,11 +17,11 @@ public static class I_ErrorsExtn{
 		return z;
 	}
 
-	[Doc($@"Flattens nested errors into a list of {nameof(IAppErrView)}")]
-	public static IList<IAppErrView> ToErrViews(this I_Errors z){
-		var R = new List<IAppErrView>();
+	[Doc($@"Flattens nested errors into a list of {nameof(ITypedErrView)}")]
+	public static IList<ITypedErrView> ToErrViews(this I_Errors z){
+		var R = new List<ITypedErrView>();
 		foreach(var err in z.Errors){
-			if(err is IAppErrView View){
+			if(err is ITypedErrView View){
 				R.Add(View);
 			}
 			if(err is I_Errors Errs){
@@ -31,8 +31,8 @@ public static class I_ErrorsExtn{
 		return R;
 	}
 
-	[Doc($@"Converts errors to an {nameof(AppErr)} instance")]
-	public static AppErr ToAppErr(this I_Errors z){
-		return AppErr.FromViews(z.ToErrViews());
+	[Doc($@"Converts errors to an {nameof(TypedErr)} instance")]
+	public static TypedErr ToAppErr(this I_Errors z){
+		return TypedErr.FromViews(z.ToErrViews());
 	}
 }

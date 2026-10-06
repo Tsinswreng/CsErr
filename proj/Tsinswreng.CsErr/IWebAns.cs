@@ -4,18 +4,30 @@ using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 
 /// 除IWebAns<obj>外 他者勿用、緣不支持AOT下json序列化
-[Doc($@"Web API response interface. Use {nameof(IWebAns<obj>)} for AOT compatibility")]
+[Doc($$"""
+Web API response interface. Use {{nameof(IWebAns<obj>)}} for AOT compatibility
+#Eg[
+```json
+{
+	"Data": "",
+	"Errors": [
+	
+	]
+}
+```
+]
+""")]
 public interface IWebAns<T>{
 	[Doc($@"Response data")]
 	public T? Data{get;set;}
 	[Doc($@"List of error views")]
-	public IList<IAppErrView>? Errors{get;set;}
+	public IList<ITypedErrView>? Errors{get;set;}
 }
 
 [Doc($@"Default implementation of {nameof(IWebAns<T>)}")]
 public class WebAns<T>:IWebAns<T>{
 	public T? Data{get;set;}
-	public IList<IAppErrView>? Errors{get;set;}
+	public IList<ITypedErrView>? Errors{get;set;}
 }
 
 [Doc($@"Factory for creating {nameof(IWebAns<obj>)}")]
@@ -23,7 +35,7 @@ public class WebAns:WebAns<obj>
 //, IAppSerializable
 {
 	[Doc($@"Creates a new {nameof(IWebAns<obj>)}")]
-	public static IWebAns<obj> Mk(obj? Data, IList<IAppErrView>? Errors=null){
+	public static IWebAns<obj> Mk(obj? Data, IList<ITypedErrView>? Errors=null){
 		return new WebAns<obj>(){
 			Data = Data,
 			Errors = Errors,
@@ -33,10 +45,10 @@ public class WebAns:WebAns<obj>
 }
 
 public static class WebAnsExtn{
-	[Doc($@"Returns {nameof(IWebAns<T>.Data)} or throws {nameof(AppErr)} if errors exist")]
+	[Doc($@"Returns {nameof(IWebAns<T>.Data)} or throws {nameof(TypedErr)} if errors exist")]
 	public static T? DataOrThrow<T>(this IWebAns<T> z){
 		if(z.Errors is not null && z.Errors.Count > 0){
-			throw AppErr.FromViews(z.Errors).ToAppErr();
+			throw TypedErr.FromViews(z.Errors).ToTypedErr();
 		}
 		return z.Data;
 	}
@@ -46,13 +58,13 @@ public static class WebAnsExtn{
 		[Doc($@"Deserializes JSON to {nameof(IWebAns<T>)}")]
 		public static IWebAns<T> Deserialize<T>(
 			str Json
-			,JsonTypeInfo<IList<AppErrView>> IListAppErrViewJsonTypeInfo
+			,JsonTypeInfo<IList<TypedErrView>> IListAppErrViewJsonTypeInfo
 			,Func<Type, JsonTypeInfo> FnGetJsonTypeInfo
 		){
 			using var doc = JsonDocument.Parse(Json);
 			var root = doc.RootElement;
 			// 1. 反序列化 Errors（始终用源生成器）
-			IList<AppErrView>? errors = null;
+			IList<TypedErrView>? errors = null;
 			if (root.TryGetProperty(nameof(IWebAns<>.Errors), out var errEl) && errEl.ValueKind != JsonValueKind.Null){
 				errors = errEl.Deserialize(IListAppErrViewJsonTypeInfo);
 			}
@@ -66,7 +78,7 @@ public static class WebAnsExtn{
 
 			var R = new WebAns<T>();
 			R.Data = data;
-			R.Errors = errors?.Select(x=>(IAppErrView)x).ToList();
+			R.Errors = errors?.Select(x=>(ITypedErrView)x).ToList();
 			return R;
 		}
 	}
