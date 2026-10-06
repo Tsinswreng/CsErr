@@ -39,7 +39,9 @@ public static class ITypedErrExtn{
 		
 		var R = new TypedErr{
 			Type = z.Type,
-			Errors = z.Errors,
+			Args = z.Args,
+			DebugArgs = z.DebugArgs,
+			Errors = z.Errors
 		};
 		return R;
 	}
