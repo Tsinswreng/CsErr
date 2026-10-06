@@ -17,7 +17,7 @@ public partial interface ITypedErr
 
 
 public static class ITypedErrExtn{
-	[Doc($@"Adds debug arguments for troubleshooting, not shown to end users")]
+	
 	public static TSelf AddDebugArgs<TSelf>(
 		this TSelf z, params obj?[] Args
 	)where TSelf: class, ITypedErr{
@@ -25,6 +25,11 @@ public static class ITypedErrExtn{
 		z.DebugArgs.AddRange(Args);
 		return z;
 	}
+	
+	
+	[Doc(@$"把接口適配成實現類。
+	因爲 實現類繼承了 Exception, 可直接throw
+	")]
 	public static TypedErr AsOrToTypedErr(
 		this ITypedErr z
 	){
