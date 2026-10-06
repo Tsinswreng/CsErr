@@ -26,13 +26,15 @@ public static class I_ErrorsExtn{
 			}
 			if(err is I_Errors Errs){
 				R.AddRange(Errs.ToErrViews());
+			}else{//字符串等
+				//TswgNote
 			}
 		}
 		return R;
 	}
 
 	[Doc($@"Converts errors to an {nameof(TypedErr)} instance")]
-	public static TypedErr ToAppErr(this I_Errors z, OptParseView Opt){
+	public static TypedErr ToTypedErr(this I_Errors z, OptParseView Opt){
 		return TypedErr.FromViews(z.ToErrViews(), Opt);
 	}
 }

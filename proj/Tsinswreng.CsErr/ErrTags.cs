@@ -1,5 +1,6 @@
 namespace Tsinswreng.CsErr;
 
+//TswgNote 是否應該加在這個庫裏?
 [Doc($@"Standard error tags for categorization")]
 public static class ErrTags{
 	/// 業務異常  如參數不合法

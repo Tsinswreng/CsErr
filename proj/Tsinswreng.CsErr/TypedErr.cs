@@ -80,8 +80,13 @@ public partial class TypedErr
 		return R;
 	}
 	[Doc($@"
-#Sum[Creates an {nameof(TypedErr)} from a list of {nameof(ITypedErrView)}]
-#Throw[{nameof(Exception)}][Views is empty]
+	把 異常視圖列表適配 成 {nameof(TypedErr)}
+	
+	取{nameof(Views)}的第一項 作 返值的錯誤。
+	餘者加入{nameof(TypedErr.Errors)}中
+	
+	#Throw[{nameof(Exception)}][Views is empty]
+	
 ")]
 	public static TypedErr FromViews(
 		IList<ITypedErrView> Views,
@@ -101,16 +106,15 @@ public partial class TypedErr
 		return R;
 	}
 
-	// public override str ToString(){
-	// 	return FillTemplate(Key??"", Args??[]);
-	// }
+	[Doc("")]
 	public override str ToString(){
 		var z = this;
-		var R = new List<str>();
-		R.Add(z.Message);
-		R.Add(z?.Source??"");
-		R.Add(z?.StackTrace??"");
-		R.Add(z?.InnerException?.ToString()??"");
+		var R = new List<str> {
+			z.Message,
+			z?.Source ?? "",
+			z?.StackTrace ?? "",
+			z?.InnerException?.ToString() ?? ""
+		};
 		foreach(var Err in z?.Errors??[]){
 			R.Add(Err?.ToString()??"");
 		}
