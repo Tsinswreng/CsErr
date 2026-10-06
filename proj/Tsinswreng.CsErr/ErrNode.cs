@@ -4,14 +4,14 @@ using Tsinswreng.CsKeyNode;
 [Doc($@"用作異常種類的標識")]
 public interface IErrNode:IKeyNode{
 	[Doc($@"Set of string tags for categorization")]
-	public ISet<str> Tags{get;set;}
+	public ISet<str>? Tags{get;set;}
 }
 
 
 
 public class ErrNode:KeyNode, IErrNode {
 	
-	public ISet<str> Tags{get;set;} = new HashSet<str>();
+	public ISet<str>? Tags{get;set;} = new HashSet<str>();
 	
 	[Doc(@$"創建一個異常標識節點
 	#Prm[{nameof(Parent)}][父節點]
@@ -25,6 +25,9 @@ public class ErrNode:KeyNode, IErrNode {
 		};
 		
 		if(Tags != null){
+			if(R.Tags is null){
+				R.Tags = new HashSet<str>(Tags);
+			}
 			R.Tags.UnionWith(Tags);
 		}
 		return R;
@@ -40,6 +43,7 @@ public class ErrNode:KeyNode, IErrNode {
 	")]
 	public static IErrNode MkB(IErrNode? Parent, IList<str> Path, IList<str>? Tags = null){
 		var R = Mk(Parent, Path, Tags);
+		R.Tags??=new HashSet<str>();
 		R.Tags.Add(ErrTags.BizErr);
 		R.Tags.Add(ErrTags.Public);
 		return R;
@@ -48,6 +52,7 @@ public class ErrNode:KeyNode, IErrNode {
 	[Doc($@"Creates a system error item (tagged with {nameof(ErrTags.SysErr)})")]
 	public static IErrNode MkS(IErrNode? Parent, IList<str> Path, IList<str>? Tags = null){
 		var R = Mk(Parent, Path, Tags);
+		R.Tags??=new HashSet<str>();
 		R.Tags.Add(ErrTags.SysErr);
 		//R.Tags.Add(ErrTags.Private);
 		return R;

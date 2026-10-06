@@ -38,11 +38,11 @@ public partial class TypedErr
 	public IList<obj?>? Args { get; set; } = new List<obj?>();
 	
 	[Impl(typeof(ITypedErrView))]
-	public ISet<str> Tags{
+	public ISet<str>? Tags{
 		get{
-			return Type?.Tags ?? new HashSet<str>();
+			return Type?.Tags;
+			
 		}
-		
 	}
 	
 	#endregion Impl-ITypedErrView

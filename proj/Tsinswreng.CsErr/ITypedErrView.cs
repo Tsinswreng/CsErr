@@ -14,7 +14,7 @@ public interface ITypedErrView:IErr{
 	[Doc($@"Arguments for error message template")]
 	public IList<obj?>? Args { get; }
 	[Doc($@"Set of string tags for categorization")]
-	public ISet<str> Tags{get;}
+	public ISet<str>? Tags{get;}
 }
 
 

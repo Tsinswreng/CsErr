@@ -26,7 +26,9 @@ public static class ErrViewExtn{
 				Key = Key.ToString(),
 				// 複製一份標籤、不與錯誤鍵共用集合,
 				// 以免日後改動視圖時連帶改到 KeysErr 裏那些靜態錯誤鍵
-				Tags = new HashSet<str>(Key.Tags),
+				Tags = new HashSet<str>(
+					Key.Tags??new HashSet<str>()
+				),
 			};
 		}
 		// 其餘一概不能適配。
