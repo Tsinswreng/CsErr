@@ -9,8 +9,24 @@ namespace Tsinswreng.CsErr;
 View interface for errors, used in API responses.
 Excludes {nameof(I_Errors)} and {nameof(IErrNode)} for serialization.")]
 public interface ITypedErrView:IErr{
-	[Doc($@"Full path key from ")]
-	public str? Key{get;}
+	[Doc($@"Full path key
+	#Eg[`User/PasswordNotMatch`]
+	#Eg[`User/InvalidToken`]
+	#Eg[`Word/Word__NotBelongToLang__`]
+	")]
+	
+	public str Key{get;}
+	
+	[Doc(@$"
+	#Eg[
+	When we have there for {nameof(Key)}:
+	- `User/PasswordNotMatch`
+	- `User/InvalidToken`
+	then the {nameof(PathSep)} should be `/`
+	]
+	")]
+	public str? PathSep{get;}
+	
 	[Doc($@"Arguments for error message template")]
 	public IList<obj?>? Args { get; }
 	[Doc($@"Set of string tags for categorization")]
@@ -19,10 +35,12 @@ public interface ITypedErrView:IErr{
 
 
 [Doc($@"Default implementation of {nameof(ITypedErrView)}")]
-public class TypedErrView:ITypedErrView
-{
+public class TypedErrView:ITypedErrView{
 	[Impl(typeof(ITypedErrView))]
-	public str? Key{get;set;}
+	public str Key{get;set;} = "";
+	
+	[Impl(typeof(ITypedErrView))]
+	public str PathSep{get;set;} = "/";
 	
 	[Impl(typeof(ITypedErrView))]
 	public IList<obj?>? Args { get; set; }

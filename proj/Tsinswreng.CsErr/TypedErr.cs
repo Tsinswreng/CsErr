@@ -19,7 +19,7 @@ public partial class TypedErr
 	
 	#region Impl-ITypedErr
 	[Impl(typeof(ITypedErr))]
-	public IErrNode? Type{get;set;}
+	public IErrNode Type{get;set;} = null!;
 	
 	[Impl(typeof(ITypedErr))]
 	public IList<obj?>? DebugArgs { get; set; } = new List<obj?>();
@@ -30,18 +30,21 @@ public partial class TypedErr
 	#region Impl-ITypedErrView
 	
 	[Impl(typeof(ITypedErrView))]
-	public str? Key { get{
-		return Type?.ToString();
-	}}
+	public str Key {
+		get=>Type.ToString()!;
+	}
+	
+	[Impl(typeof(ITypedErrView))]
+	public str PathSep{
+		get=>Type.PathSep;
+	}
 	
 	[Impl(typeof(ITypedErrView))]
 	public IList<obj?>? Args { get; set; } = new List<obj?>();
 	
 	[Impl(typeof(ITypedErrView))]
 	public ISet<str>? Tags{
-		get{
-			return new HashSet<str>(Type?.Tags??new HashSet<str>());
-		}
+		get => new HashSet<str>(Type?.Tags??new HashSet<str>());
 	}
 	
 	#endregion Impl-ITypedErrView
@@ -49,11 +52,6 @@ public partial class TypedErr
 	[Impl(typeof(I_Errors))]
 	public IList<obj?> Errors { get; set; } = new List<obj?>();
 	
-	
-	
-	
-	
-
 	[Doc($@"Creates an {nameof(TypedErr)} with given type and arguments")]
 	public static TypedErr Mk(IErrNode Key, params obj?[] Args){
 		var R = new TypedErr();
@@ -64,18 +62,17 @@ public partial class TypedErr
 
 	[Doc($@"Creates an {nameof(TypedErr)} from {nameof(ITypedErrView)}")]
 	public static TypedErr FromView(
-		ITypedErrView View,
-		OptParseView Opt
+		ITypedErrView View
 	){
-		var ErrNode = new ErrNode(){
-			//TswgNote
-			RelaPathSegs = View.Key?.Split(Opt.PathSep).ToList()??[],
+		var PathSep = View.PathSep;
+		var errNode = new ErrNode(){
+			RelaPathSegs = View.Key?.Split(PathSep).ToList()??[],
 			Tags = View.Tags,
-			PathSep = Opt.PathSep
+			PathSep = PathSep??ErrNode.DfltPathSep
 		};
 		
 		var R = new TypedErr();
-		R.Type = ErrNode;
+		R.Type = errNode;
 		R.Args = View.Args;
 		return R;
 	}
@@ -89,8 +86,7 @@ public partial class TypedErr
 	
 ")]
 	public static TypedErr FromViews(
-		IList<ITypedErrView> Views,
-		OptParseView Opt
+		IList<ITypedErrView> Views
 	){
 		if(Views.Count == 0){
 			throw new Exception("Views.Count == 0");
@@ -98,9 +94,9 @@ public partial class TypedErr
 		TypedErr R = null!;
 		for(var i = 0; i < Views.Count; i++){
 			if(i == 0){
-				R = FromView(Views[i], Opt);
+				R = FromView(Views[i]);
 			}else{
-				R.AddErr(FromView(Views[i], Opt));
+				R.AddErr(FromView(Views[i]));
 			}
 		}
 		return R;
@@ -149,6 +145,6 @@ public partial class TypedErr
 
 }
 
-public class OptParseView{
-	public str PathSep{get;set;} = "/";
-}
+// public class OptParseView{
+// 	public str PathSep{get;set;} = "/";
+// }

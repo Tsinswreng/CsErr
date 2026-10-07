@@ -23,7 +23,7 @@ public static class ErrView{
 		// 它本身沒有 Args、其全路徑即爲鍵
 		if(Err is IErrNode Key){
 			return new TypedErrView{
-				Key = Key.ToString(),
+				Key = Key.ToString()!,
 				// 複製一份標籤、不與錯誤鍵共用集合,
 				// 以免日後改動視圖時連帶改到 KeysErr 裏那些靜態錯誤鍵
 				Tags = new HashSet<str>(
@@ -105,7 +105,7 @@ public static class I_ErrorsExtn{
 	若成功 則使首元素之Type作返值之類型
 	z.Errors中之餘者即照加入返值之Errors
 	")]
-	public static TypedErr ToTypedErr(this I_Errors z, OptParseView Opt){
+	public static TypedErr ToTypedErr(this I_Errors z){
 		// 1: 無內容即拋
 		if(z.Errors is null || z.Errors.Count == 0){
 			throw new Exception(@$"{nameof(z)}.{nameof(I_Errors.Errors)} is empty");
@@ -116,7 +116,7 @@ public static class I_ErrorsExtn{
 			throw new Exception(@$"{nameof(z)}.{nameof(I_Errors.Errors)}[0] cannot be converted to {nameof(ITypedErrView)}");
 		}
 		// 3: 首元素之Type作返值之類型 —— FromView 正是幹這個的
-		var R = TypedErr.FromView(First, Opt);
+		var R = TypedErr.FromView(First);
 		// 4: 餘者原樣加入、不轉換、不攤平
 		for(var i = 1; i < z.Errors.Count; i++){
 			R.AddErr(z.Errors[i]!);

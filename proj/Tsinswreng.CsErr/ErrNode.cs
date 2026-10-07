@@ -10,7 +10,7 @@ public interface IErrNode:IKeyNode{
 
 
 public class ErrNode:KeyNode, IErrNode {
-	
+	public const str DfltPathSep = "/";
 	public ISet<str>? Tags{get;set;} = new HashSet<str>();
 	
 	[Doc(@$"創建一個異常標識節點
