@@ -40,8 +40,7 @@ public partial class TypedErr
 	[Impl(typeof(ITypedErrView))]
 	public ISet<str>? Tags{
 		get{
-			return Type?.Tags;
-			
+			return new HashSet<str>(Type?.Tags??new HashSet<str>());
 		}
 	}
 	
@@ -72,6 +71,7 @@ public partial class TypedErr
 			//TswgNote
 			RelaPathSegs = View.Key?.Split(Opt.PathSep).ToList()??[],
 			Tags = View.Tags,
+			PathSep = Opt.PathSep
 		};
 		
 		var R = new TypedErr();

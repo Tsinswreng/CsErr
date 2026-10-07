@@ -7,14 +7,14 @@ public partial interface I_Errors{
 }
 
 [Doc($@"錯誤視圖之適配: 把單個錯誤項轉成{nameof(ITypedErrView)}")]
-public static class ErrViewExtn{
+public static class ErrView{
 	[Doc($@"
 	試圖把單個錯誤項適配成{nameof(ITypedErrView)}、不能適配則返 null。
 	{nameof(ITypedErrView)} 原樣返;
 	{nameof(IErrNode)} 以其全路徑爲 {nameof(ITypedErrView.Key)}、其標籤爲 {nameof(ITypedErrView.Tags)};
 	其餘一概不能適配。
 	")]
-	public static ITypedErrView? AsOrToErrView(this obj? Err){
+	public static ITypedErrView? AsOrToErrView(obj? Err){
 		// 本來就是視圖的 原樣返、無需再造
 		if(Err is ITypedErrView View){
 			return View;
@@ -53,13 +53,14 @@ public static class I_ErrorsExtn{
 
 	[Doc($@"
 	把錯誤列表中所有能適配成{nameof(ITypedErrView)}的
-	都適配 然後組成扁平的 一唯的 錯誤視圖列表
+	都適配 然後組成扁平的 一唯的 錯誤視圖列表。
+	不能適配成異常視圖的就被忽略
 	")]
 	public static IList<ITypedErrView> ExtractErrViews(this I_Errors z){
 		var R = new List<ITypedErrView>();
 		foreach(var err in z.Errors){
 			// 能適配成視圖的 收下(錯誤鍵由此得以進入視圖列表)
-			if(err.AsOrToErrView() is ITypedErrView View){
+			if(ErrView.AsOrToErrView(err) is ITypedErrView View){
 				R.Add(View);
 			}
 			// 容器型錯誤 遞歸攤平其內層錯誤。
@@ -85,7 +86,7 @@ public static class I_ErrorsExtn{
 			throw new Exception(@$"{nameof(z)}.{nameof(I_Errors.Errors)} is empty");
 		}
 		// 2: 首元素轉爲錯誤視圖、失敗即拋
-		var First = z.Errors[0].AsOrToErrView();
+		var First = ErrView.AsOrToErrView(z.Errors[0]);
 		if(First is null){
 			throw new Exception(@$"{nameof(z)}.{nameof(I_Errors.Errors)}[0] cannot be converted to {nameof(ITypedErrView)}");
 		}
