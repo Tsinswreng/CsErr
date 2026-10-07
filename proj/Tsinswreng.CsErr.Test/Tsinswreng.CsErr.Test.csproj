@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
@@ -8,7 +8,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<!-- 測試框架: 自研的樹型測試框架 -->
+		<PackageReference Include="Tsinswreng.CsTreeTest" Version="0.1.1-alpha" />
+		<!-- 被測的兩個庫 -->
 		<ProjectReference Include="../Tsinswreng.CsErr/Tsinswreng.CsErr.csproj" />
+		<ProjectReference Include="../Tsinswreng.CsErr.Results/Tsinswreng.CsErr.Results.csproj" />
 	</ItemGroup>
 
 </Project>

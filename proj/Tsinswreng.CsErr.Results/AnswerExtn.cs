@@ -1,30 +1,6 @@
 namespace Tsinswreng.CsErr.Results;
 
 public static class IAnswerExtn{
-	[Doc($@"Adds a string error and sets {nameof(IAnswer<T>.Ok)} to false")]
-	public static IAnswer<T> AddErr<T>(this IAnswer<T> z, str s){
-		return z.AddErrStr(s);
-	}
-
-	[Doc($@"Adds an {nameof(Exception)} error and sets {nameof(IAnswer<T>.Ok)} to false")]
-	public static IAnswer<T> AddErr<T>(this IAnswer<T> z, Exception e){
-		return z.AddErrException(e);
-	}
-	[Doc($@"Adds a string error and sets {nameof(IAnswer<T>.Ok)} to false")]
-	public static IAnswer<T> AddErrStr<T>(this IAnswer<T> z, str s){
-		z.Ok = false;
-		z.Errors??= new List<object?>();
-		z.Errors.Add(s);
-		return z;
-	}
-
-	[Doc($@"Adds an {nameof(Exception)} error and sets {nameof(IAnswer<T>.Ok)} to false")]
-	public static IAnswer<T> AddErrException<T>(this IAnswer<T> z, Exception e){
-		z.Ok = false;
-		z.Errors??= new List<object?>();
-		z.Errors.Add(e);
-		return z;
-	}
 	[Doc($@"Sets {nameof(IAnswer<T>.Data)} and {nameof(IAnswer<T>.Ok)} to true")]
 	public static IAnswer<T> OkWith<T> (this IAnswer<T> z, T data = default!){
 		z.Data = data;

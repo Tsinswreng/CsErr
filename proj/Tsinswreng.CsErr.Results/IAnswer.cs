@@ -15,7 +15,7 @@ compare with throw-try-catch pattern:
 #Eg[
 ```cs
 IAnswer<T> fn(){
-	var R = new Answer<T>(); // default of R.Ok is false;
+	IAnswer<T> R = new Answer<T>(); // default of R.Ok is false;
 	try{
 		if(someFailedCond){
 			return R.AddErr("Some Reason string");

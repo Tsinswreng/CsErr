@@ -6,8 +6,10 @@ public partial struct Answer<T>()
 {
 	[Doc($@"The result data if successful")]
 	public T? Data{get;set;}
+	
 	[Doc($@"Whether the operation succeeded")]
-	public bool Ok{get;set;}
+	public bool Ok{get;set;} = false;
+	
 	[Doc($@"List of errors if failed
 	item can be any including Exception, string, etc
 	")]
