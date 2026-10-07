@@ -51,13 +51,37 @@ public static class I_ErrorsExtn{
 		return z;
 	}
 
-	[Doc($@"
+	[Doc($"""
 	把錯誤列表中所有能適配成{nameof(ITypedErrView)}的
 	都適配 然後組成扁平的 一唯的 錯誤視圖列表。
 	不能適配成異常視圖的就被忽略
-	")]
+
+	同一個容器在同一條遞歸路徑上只進入一次, 以免錯誤容器互相引用時無限遞迴。
+	防止
+	var e = new TypedErr();
+	e.Errors.Add("數據庫連線失敗");
+	var views = e.ExtractErrViews();   // views.Count == 0
+	""")]
 	public static IList<ITypedErrView> ExtractErrViews(this I_Errors z){
 		var R = new List<ITypedErrView>();
+		// 只記錄當前這條遞歸路徑上已進入的容器, 進入時加入、返回時移除。
+		// 用引用比較: 實現類可能重寫 Equals, 那會把內容相同但不同的兩個容器當成同一個。
+		var OnPath = new HashSet<obj>(ReferenceEqualityComparer.Instance);
+		ExtractErrViewsInto(z, R, OnPath);
+		return R;
+	}
+
+	[Doc($@"
+	{nameof(ExtractErrViews)} 的遞歸主體: 逐個處理 z.Errors 中的項。
+	第三個參數記錄當前這條遞歸路徑上已進入的容器, 用來擋環路。
+	")]
+	static void ExtractErrViewsInto(
+		I_Errors z, IList<ITypedErrView> R, ISet<obj> OnPath
+	){
+		// 本容器已在本條路徑上, 再展開就會成環, 故直接返回
+		if(!OnPath.Add(z)){
+			return;
+		}
 		foreach(var err in z.Errors){
 			// 能適配成視圖的 收下(錯誤鍵由此得以進入視圖列表)
 			if(ErrView.AsOrToErrView(err) is ITypedErrView View){
@@ -66,10 +90,11 @@ public static class I_ErrorsExtn{
 			// 容器型錯誤 遞歸攤平其內層錯誤。
 			// 容器自身亦可能是視圖(如 TypedErr)、那時上面與此處會各處理一次, 此爲刻意
 			if(err is I_Errors Errs){
-				R.AddRange(Errs.ExtractErrViews());
+				ExtractErrViewsInto(Errs, R, OnPath);
 			}
 		}
-		return R;
+		// 離開本容器時把它移出, 這樣它出現在另一條不相干的分支時仍會照常展開
+		OnPath.Remove(z);
 	}
 
 	
