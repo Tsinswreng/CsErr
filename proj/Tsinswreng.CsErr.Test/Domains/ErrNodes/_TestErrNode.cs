@@ -16,8 +16,8 @@ public partial class TestErrNode : ITester{
 		Node.Ordered = true;
 		Node.IsParallelRecursive = false;
 		RegisterMk(Node);
-		RegisterMkB(Node);
-		RegisterMkS(Node);
+		// RegisterMkB／RegisterMkS 對應的 API 已移除，用例整檔 #if false；此處不再註冊。
+
 		return Node;
 	}
 }

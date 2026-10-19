@@ -8,31 +8,32 @@ using static ErrNode;
 public static class KeysErr{
 	public static class Common{
 		public static K _R = Mk(null, [nameof(Common)]);
-		public static K ArgErr = MkB(_R, [nameof(ArgErr)]);
-		public static K UnknownErr = MkB(_R, [nameof(UnknownErr)]);
+		public static K ArgErr = Mk(_R, [nameof(ArgErr)]);
+		public static K UnknownErr = Mk(_R, [nameof(UnknownErr)]);
 	}
 	public class User{
 		public static K _R = Mk(null, [nameof(User)]);
-		public static K UserNotExist = MkB(_R, [nameof(UserNotExist)]);
-		public static K UserAlreadyExist = MkB(_R, [nameof(UserAlreadyExist)]);
-		public static K PasswordNotMatch = MkB(_R, [nameof(PasswordNotMatch)]);
-		public static K InvalidToken = MkB(_R, [nameof(InvalidToken)]);
-		public static K TokenExpired = MkB(_R, [nameof(TokenExpired)]);
-		public static K AuthenticationFailed = MkB(_R, [nameof(AuthenticationFailed)]);
+		public static K UserNotExist = Mk(_R, [nameof(UserNotExist)]);
+		public static K UserAlreadyExist = Mk(_R, [nameof(UserAlreadyExist)]);
+		public static K PasswordNotMatch = Mk(_R, [nameof(PasswordNotMatch)]);
+		public static K InvalidToken = Mk(_R, [nameof(InvalidToken)]);
+		public static K TokenExpired = Mk(_R, [nameof(TokenExpired)]);
+		public static K AuthenticationFailed = Mk(_R, [nameof(AuthenticationFailed)]);
 	}
 	public class Word{
 		public static K _R = Mk(null, [nameof(Word)]);
-		public static K LoadWordListFailed = MkB(_R, [nameof(LoadWordListFailed)]);
-		public static K SaveWordListFailed = MkB(_R, [nameof(SaveWordListFailed)]);
-		public static K __NotBelongToLang__ = MkB(_R, [nameof(__NotBelongToLang__)]);
-		public static K __And__IsNotSameUserWord = MkB(_R, [nameof(__And__IsNotSameUserWord)]);
-		public static K BackgroundImageServiceFailedToInit = MkB(_R, [nameof(BackgroundImageServiceFailedToInit)]);
+		public static K LoadWordListFailed = Mk(_R, [nameof(LoadWordListFailed)]);
+		public static K SaveWordListFailed = Mk(_R, [nameof(SaveWordListFailed)]);
+		public static K __NotBelongToLang__ = Mk(_R, [nameof(__NotBelongToLang__)]);
+		public static K __And__IsNotSameUserWord = Mk(_R, [nameof(__And__IsNotSameUserWord)]);
+		public static K BackgroundImageServiceFailedToInit = Mk(_R, [nameof(BackgroundImageServiceFailedToInit)]);
 	}
 	public class Sync{
 		public static K _R = Mk(null, [nameof(Sync)]);
-		public static K BatchGetByIdCountMismatch = MkB(_R, [nameof(BatchGetByIdCountMismatch)]);
-		public static K SyncShouldUseSameId = MkB(_R, [nameof(SyncShouldUseSameId)]);
+		public static K BatchGetByIdCountMismatch = Mk(_R, [nameof(BatchGetByIdCountMismatch)]);
+		public static K SyncShouldUseSameId = Mk(_R, [nameof(SyncShouldUseSameId)]);
 	}
 }
 
 #endif
+

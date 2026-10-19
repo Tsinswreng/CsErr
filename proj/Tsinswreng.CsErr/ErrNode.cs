@@ -33,30 +33,31 @@ public class ErrNode:KeyNode, IErrNode {
 		return R;
 	}
 
-	//TswgNote 是否應該在此庫中提供?
-	[Doc($@"
-	#See[{nameof(Mk)}]
-	在此基礎上增加
-	- {nameof(ErrTags.BizErr)}
-	- {nameof(ErrTags.Public)}
-	兩個標籤
-	")]
-	public static IErrNode MkB(IErrNode? Parent, IList<str> Path, IList<str>? Tags = null){
-		var R = Mk(Parent, Path, Tags);
-		R.Tags??=new HashSet<str>();
-		R.Tags.Add(ErrTags.BizErr);
-		R.Tags.Add(ErrTags.Public);
-		return R;
-	}
+	// //TswgNote 是否應該在此庫中提供?
+	// [Doc($@"
+	// #See[{nameof(Mk)}]
+	// 在此基礎上增加
+	// - {nameof(ErrTags.BizErr)}
+	// - {nameof(ErrTags.Public)}
+	// 兩個標籤
+	// ")]
+	// public static IErrNode MkB(IErrNode? Parent, IList<str> Path, IList<str>? Tags = null){
+	// 	var R = Mk(Parent, Path, Tags);
+	// 	R.Tags??=new HashSet<str>();
+	// 	R.Tags.Add(ErrTags.BizErr);
+	// 	R.Tags.Add(ErrTags.Public);
+	// 	return R;
+	// }
 
-	[Doc($@"Creates a system error item (tagged with {nameof(ErrTags.SysErr)})")]
-	public static IErrNode MkS(IErrNode? Parent, IList<str> Path, IList<str>? Tags = null){
-		var R = Mk(Parent, Path, Tags);
-		R.Tags??=new HashSet<str>();
-		R.Tags.Add(ErrTags.SysErr);
-		//R.Tags.Add(ErrTags.Private);
-		return R;
-	}
+	// [Doc($@"Creates a system error item (tagged with {nameof(ErrTags.SysErr)})")]
+	// public static IErrNode MkS(IErrNode? Parent, IList<str> Path, IList<str>? Tags = null){
+	// 	var R = Mk(Parent, Path, Tags);
+	// 	R.Tags??=new HashSet<str>();
+	// 	R.Tags.Add(ErrTags.SysErr);
+	// 	//R.Tags.Add(ErrTags.Private);
+	// 	return R;
+	// }
+
 }
 
 public static class ErrNodeExtn{

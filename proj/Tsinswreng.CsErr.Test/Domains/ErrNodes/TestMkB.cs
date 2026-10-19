@@ -1,3 +1,4 @@
+#if false  // MkB／MkS 已不在此庫提供（默認語義改成：無標籤即公開業務異常）；用例留作歷史參考。
 using Tsinswreng.CsErr;
 using Tsinswreng.CsTreeTest;
 
@@ -41,3 +42,4 @@ public partial class TestErrNode{
 		});
 	}
 }
+#endif
