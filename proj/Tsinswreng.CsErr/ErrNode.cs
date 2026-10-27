@@ -18,7 +18,7 @@ public class ErrNode:KeyNode, IErrNode {
 	#Prm[{nameof(Path)}][自己的路徑]
 	#Prm[{nameof(Tags)}][異常標籤]
 	")]
-	public static IErrNode Mk(IErrNode? Parent, IList<str> Path, IList<str>? Tags = null){
+	public static IErrNode Mk(IErrNode? Parent, IReadOnlyList<str> Path, IList<str>? Tags = null){
 		var R = new ErrNode{
 			Parent = Parent,
 			RelaPathSegs = Path,
